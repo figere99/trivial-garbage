@@ -14,6 +14,8 @@
   (:shadow #:make-hash-table)
   (:nicknames #:tg)
   (:export #:gc
+           #:avoid-gc
+           #:normal-gc
            #:make-weak-pointer
            #:weak-pointer-value
            #:weak-pointer-p
@@ -99,6 +101,18 @@
              (if full
                  (sys:gc-immediately t)
                  (si:ephemeral-gc-flip))))
+
+(defun avoid-gc ()
+  ""
+  #+cmu (ext:gc-off)
+  #+sbcl (setf sb-kernel:*gc-inhibit* t)
+  #+lispworks-32bit (avoid-gc))
+
+(defun normal-gc ()
+  ""
+  #+cmu (ext:gc-on)
+  #+sbcl (setf sb-kernel:*gc-inhibit* nil)
+  #+lispworks-32bit (normal-gc))
 
 ;;;; Weak Pointers
 
