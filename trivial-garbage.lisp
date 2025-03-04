@@ -99,9 +99,9 @@
                               (si:gc-reports-enable verbose)
                               (si:gc-ephemeral-reports-enable verbose)
                               (si:gc-warnings-enable verbose))
-                             (if full
-                                 (sys:gc-immediately t)
-                                 (si:ephemeral-gc-flip))))
+             (if full
+                 (sys:gc-immediately t)
+                 (si:ephemeral-gc-flip))))
 
 (defun avoid-gc ()
   "Avoids garbage collection by either disabling it on implementations
